@@ -4,25 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Explorer</title>
+    <!-- Use Inter for a modern UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
+<header>
     <h1>🎌 Anime Explorer</h1>
-    <p>Explore Anime using Jikan API</p>
+    <p>Search and explore anime using Jikan API</p>
 
     <div class="search-box">
         <input type="text" id="searchInput" placeholder="Search anime...">
         <button id="searchBtn">Search</button>
     </div>
-</header>
+
+    <!-- Controls -->
+    <div class="controls">
+        <select id="genreFilter">
+            <option value="all">All Genres</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Adventure">Adventure</option>
+        </select>
+
+        <select id="sortOption">
+            <option value="">Sort</option>
+            <option value="asc">Rating ↑</option>
+            <option value="desc">Rating ↓</option>
+        </select>
+
+        <button id="themeToggle">🌙 Theme</button>
+    </div>
 </header>
 
-    <!-- Container where fetched anime will be rendered -->
-    <main id="anime-container" class="anime-container"></main>
+    <!-- Loader shown while fetching -->
+    <div id="loader" class="loader" aria-hidden="true"></div>
 
-    <script src="script.js"></script>
+<main id="anime-container" class="anime-container" role="list"></main>
+
+<footer class="footer">
+    <p>Made with ❤️ — Data via <a href="https://jikan.moe/" target="_blank" rel="noopener">Jikan API</a></p>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
