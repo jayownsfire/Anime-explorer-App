@@ -5,6 +5,8 @@ const genreFilter = document.getElementById("genreFilter");
 const sortOption = document.getElementById("sortOption");
 const themeToggle = document.getElementById("themeToggle");
 const loader = document.getElementById("loader");
+const menuToggle = document.getElementById('menuToggle');
+const menuOverlay = document.getElementById('menuOverlay');
 
 let animeData = [];
 let liked = new Set();
@@ -150,6 +152,49 @@ if(searchInput) searchInput.addEventListener('keydown', e=> { if(e.key==='Enter'
 if(genreFilter) genreFilter.addEventListener('change', updateUI);
 if(sortOption) sortOption.addEventListener('change', updateUI);
 if(themeToggle) themeToggle.addEventListener('click', ()=> document.body.classList.toggle('light-mode'));
+
+// MOBILE MENU: toggle and basic a11y
+function openMenu(){
+    document.body.classList.add('menu-open');
+    if(menuToggle) menuToggle.setAttribute('aria-expanded','true');
+    if(menuOverlay) menuOverlay.hidden = false;
+}
+function closeMenu(){
+    document.body.classList.remove('menu-open');
+    if(menuToggle) menuToggle.setAttribute('aria-expanded','false');
+    if(menuOverlay) menuOverlay.hidden = true;
+}
+
+if(menuToggle){
+    menuToggle.addEventListener('click', ()=>{
+        const opened = document.body.classList.toggle('menu-open');
+        menuToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
+        if(menuOverlay) menuOverlay.hidden = !opened;
+    });
+}
+
+if(menuOverlay){
+    menuOverlay.addEventListener('click', closeMenu);
+}
+
+// Close menu on Escape key
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape' && document.body.classList.contains('menu-open')){
+        closeMenu();
+    }
+});
+
+// Close menu when a control inside is activated (helpful on mobile)
+const controls = document.querySelector('.controls');
+if(controls){
+    controls.addEventListener('click', (e)=>{
+        // if a button or link inside controls was clicked, close menu
+        if(document.body.classList.contains('menu-open') && (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'SELECT')){
+            // small delay so any control action still fires
+            setTimeout(closeMenu, 120);
+        }
+    });
+}
 
 // INITIAL LOAD
 fetchAnime();

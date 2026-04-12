@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Explorer</title>
-    <!-- Use Inter for a modern UI -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,6 +11,12 @@
 <body>
 
 <header>
+    <!-- Hamburger for mobile -->
+    <button id="menuToggle" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="controls">
+        <span class="bar">-</span>
+        <span class="bar">-</span>
+        <span class="bar">-</span>
+    </button>
     <h1>🎌 Anime Explorer</h1>
     <p>Search and explore anime using Jikan API</p>
 
@@ -20,7 +25,7 @@
         <button id="searchBtn">Search</button>
     </div>
 
-    <!-- Controls -->
+    <!-- Controls (also used as slide-in mobile menu) -->
     <div class="controls">
         <select id="genreFilter">
             <option value="all">All Genres</option>
@@ -38,6 +43,9 @@
         <button id="themeToggle">🌙 Theme</button>
     </div>
 </header>
+
+<!-- overlay shown when mobile menu is open -->
+<div id="menuOverlay" class="menu-overlay" hidden></div>
 
     <!-- Loader shown while fetching -->
     <div id="loader" class="loader" aria-hidden="true"></div>

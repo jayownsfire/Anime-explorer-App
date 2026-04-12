@@ -185,3 +185,71 @@ header p{margin:6px 0 0; color:var(--muted);}
     .search-box input{ width:200px; }
     .anime-card img{ height:220px; }
 }
+
+/* ===== HAMBURGER & MOBILE MENU ===== */
+.hamburger{
+    position:absolute;
+    left:18px;
+    top:18px;
+    width:44px;
+    height:44px;
+    border-radius:8px;
+    background: rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.03);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    cursor:pointer;
+    z-index:1001;
+}
+.hamburger .bar{
+    display:block;
+    width:20px;
+    height:2px;
+    background:var(--muted);
+    border-radius:2px;
+}
+
+/* overlay */
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    z-index:1000;
+    backdrop-filter: blur(2px);
+}
+
+/* On small screens hide the controls and turn them into a slide-in panel */
+@media (max-width:820px){
+    .hamburger{ display:flex; }
+    .controls{
+        position:fixed;
+        right:0;
+        top:0;
+        height:100vh;
+        width:280px;
+        max-width:90vw;
+        padding:80px 18px 18px 18px;
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        transform:translateX(110%);
+        transition: transform .28s cubic-bezier(.2,.9,.2,1);
+        background: linear-gradient(180deg, rgba(15,13,19,0.98), rgba(10,9,14,0.98));
+        box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+        z-index:1002;
+    }
+
+    /* center header text so hamburger doesn't overlap content */
+    header { padding-top:56px; }
+
+    /* when menu is open (body.menu-open) reveal the controls */
+    body.menu-open .controls{ transform:translateX(0); }
+    body.menu-open .menu-overlay{ display:block; }
+}
+
+/* hide hamburger on wide screens */
+@media (min-width:821px){
+    .hamburger{ display:none; }
+}
